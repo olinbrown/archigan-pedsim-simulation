@@ -1,0 +1,408 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cryptlex.LexActivator</name>
+    </assembly>
+    <members>
+        <member name="M:Cryptlex.LexActivator.SetProductFile(System.String)">
+            <summary>
+            Sets the absolute path of the Product.dat file.
+            
+            This function must be called on every start of your program
+            before any other functions are called.
+            </summary>
+            <param name="filePath">absolute path of the product file (Product.dat)</param>
+        </member>
+        <member name="M:Cryptlex.LexActivator.SetProductData(System.String)">
+            <summary>
+            Embeds the Product.dat file in the application.
+            
+            It can be used instead of SetProductFile() in case you want
+            to embed the Product.dat file in your application.
+            
+            This function must be called on every start of your program
+            before any other functions are called.
+            </summary>
+            <param name="productData">content of the Product.dat file</param>
+        </member>
+        <member name="M:Cryptlex.LexActivator.SetProductId(System.String,Cryptlex.LexActivator.PermissionFlags)">
+            <summary>
+            Sets the product id of your application.
+            
+            This function must be called on every start of your program before
+            any other functions are called, with the exception of SetProductFile()
+            or SetProductData() function.
+            </summary>
+            <param name="productId">the unique product id of your application as mentioned on the product page in the dashboard</param>
+            <param name="flags">depending upon whether your application requires admin/root permissions to run or not, this parameter can have one of the following values: LA_SYSTEM, LA_USER, LA_IN_MEMORY</param>
+        </member>
+        <member name="M:Cryptlex.LexActivator.SetLicenseKey(System.String)">
+            <summary>
+            Sets the license key required to activate the license.
+            </summary>
+            <param name="licenseKey">a valid license key</param>
+        </member>
+        <member name="M:Cryptlex.LexActivator.SetLicenseUserCredential(System.String,System.String)">
+            <summary>
+            Sets the license user email and password for authentication.
+            
+            This function must be called before ActivateLicense() or IsLicenseGenuine()
+            function if 'requireAuthentication' property of the license is set to true.
+            </summary>
+            <param name="email">user email address</param>
+            <param name="password">user password</param>
+        </member>
+        <member name="M:Cryptlex.LexActivator.SetLicenseCallback(Cryptlex.LexActivator.CallbackType)">
+            <summary>
+            Sets server sync callback function.
+            
+            Whenever the server sync occurs in a separate thread, and server returns the response,
+            license callback function gets invoked with the following status codes:
+            LA_OK, LA_EXPIRED, LA_SUSPENDED, LA_E_REVOKED, LA_E_ACTIVATION_NOT_FOUND,
+            LA_E_MACHINE_FINGERPRINT, LA_E_AUTHENTICATION_FAILED, LA_E_COUNTRY, LA_E_INET,
+            LA_E_SERVER, LA_E_RATE_LIMIT, LA_E_IP
+            </summary>
+            <param name="callback"></param>
+        </member>
+        <member name="M:Cryptlex.LexActivator.SetActivationMetadata(System.String,System.String)">
+            <summary>
+            Sets the activation metadata.
+            
+            The  metadata appears along with the activation details of the license
+            in dashboard.
+            </summary>
+            <param name="key">string of maximum length 256 characters with utf-8 encoding</param>
+            <param name="value">string of maximum length 256 characters with utf-8 encoding</param>
+        </member>
+        <member name="M:Cryptlex.LexActivator.SetTrialActivationMetadata(System.String,System.String)">
+            <summary>
+            Sets the trial activation metadata.
+            
+            The  metadata appears along with the trial activation details of the product
+            in dashboard.
+            </summary>
+            <param name="key">string of maximum length 256 characters with utf-8 encoding</param>
+            <param name="value">string of maximum length 256 characters with utf-8 encoding</param>
+        </member>
+        <member name="M:Cryptlex.LexActivator.SetAppVersion(System.String)">
+            <summary>
+            Sets the current app version of your application.
+            
+            The app version appears along with the activation details in dashboard. It
+            is also used to generate app analytics.
+            </summary>
+            <param name="appVersion"></param>
+        </member>
+        <member name="M:Cryptlex.LexActivator.SetOfflineActivationRequestMeterAttributeUses(System.String,System.UInt32)">
+            <summary>
+            Sets the meter attribute uses for the offline activation request.
+            
+            This function should only be called before GenerateOfflineActivationRequest()
+            function to set the meter attributes in case of offline activation.
+            </summary>
+            <param name="name">name of the meter attribute</param>
+            <param name="uses">the uses value</param>
+        </member>
+        <member name="M:Cryptlex.LexActivator.SetNetworkProxy(System.String)">
+            <summary>
+            Sets the network proxy to be used when contacting Cryptlex servers.
+            
+            The proxy format should be: [protocol://][username:password@]machine[:port]
+            
+            NOTE: Proxy settings of the computer are automatically detected. So, in most of the
+            cases you don't need to care whether your user is behind a proxy server or not.
+            </summary>
+            <param name="proxy"></param>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GetProductMetadata(System.String)">
+            <summary>
+            Gets the product metadata as set in the dashboard.
+            
+            This is available for trial as well as license activations.
+            </summary>
+            <param name="key">metadata key to retrieve the value</param>
+            <returns>Returns the value of metadata for the key.</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GetLicenseMetadata(System.String)">
+            <summary>
+            Gets the license metadata of the license.
+            </summary>
+            <param name="key">metadata key to retrieve the value</param>
+            <returns>Returns the value of metadata for the key.</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GetLicenseMeterAttribute(System.String)">
+            <summary>
+            Gets the license meter attribute allowed uses and total uses.
+            </summary>
+            <param name="name">name of the meter attribute</param>
+            <returns>Returns the values of meter attribute allowed and total uses.</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GetLicenseKey">
+            <summary>
+            Gets the license key used for activation.
+            </summary>
+            <returns>Returns the license key.</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GetLicenseExpiryDate">
+            <summary>
+            Gets the license expiry date timestamp.
+            </summary>
+            <returns>Returns the timestamp.</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GetLicenseUserEmail">
+            <summary>
+            Gets the email associated with the license user.
+            </summary>
+            <returns>Returns the license user email.</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GetLicenseUserName">
+            <summary>
+            Gets the name associated with the license user.
+            </summary>
+            <returns>Returns the license user name.</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GetLicenseUserCompany">
+            <summary>
+            Gets the company associated with the license user.
+            </summary>
+            <returns>Returns the license user company.</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GetLicenseUserMetadata(System.String)">
+            <summary>
+            Gets the metadata associated with the license user.
+            </summary>
+            <param name="key">key to retrieve the value</param>
+            <returns>Returns the value of metadata for the key.</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GetLicenseType">
+            <summary>
+            Gets the license type (node-locked or hosted-floating).
+            </summary>
+            <returns>Returns the license type.</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GetActivationMetadata(System.String)">
+            <summary>
+            Gets the activation metadata.
+            </summary>
+            <param name="key">key to retrieve the value</param>
+            <returns>Returns the value of metadata for the key.</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GetActivationMeterAttributeUses(System.String)">
+            <summary>
+            Gets the meter attribute uses consumed by the activation.
+            </summary>
+            <param name="name"></param>
+            <returns>Returns the value of meter attribute uses by the activation.</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GetServerSyncGracePeriodExpiryDate">
+            <summary>
+            Gets the server sync grace period expiry date timestamp.
+            </summary>
+            <returns>Returns server sync grace period expiry date timestamp.</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GetTrialActivationMetadata(System.String)">
+            <summary>
+            Gets the trial activation metadata.
+            </summary>
+            <param name="key">key to retrieve the value</param>
+            <returns>Returns the value of metadata for the key.</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GetTrialExpiryDate">
+            <summary>
+            Gets the trial expiry date timestamp.
+            </summary>
+            <returns>Returns trial expiry date timestamp.</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GetTrialId">
+            <summary>
+            Gets the trial activation id. Used in case of trial extension.
+            </summary>
+            <returns>Returns the trial id.</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GetLocalTrialExpiryDate">
+            <summary>
+            Gets the trial expiry date timestamp.
+            </summary>
+            <returns>Returns trial expiry date timestamp.</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.CheckForReleaseUpdate(System.String,System.String,System.String,Cryptlex.LexActivator.CallbackType)">
+            <summary>
+            Checks whether a new release is available for the product.
+            
+            This function should only be used if you manage your releases through
+            Cryptlex release management API.
+            </summary>
+            <param name="platform">release platform e.g. windows, macos, linux</param>
+            <param name="version">current release version</param>
+            <param name="channel">release channel e.g. stable</param>
+            <param name="callback">name of the callback function</param>
+        </member>
+        <member name="M:Cryptlex.LexActivator.ActivateLicense">
+            <summary>
+            Activates the license by contacting the Cryptlex servers. It
+            validates the key and returns with encrypted and digitally signed token
+            which it stores and uses to activate your application.
+            
+            This function should be executed at the time of registration, ideally on
+            a button click.
+            </summary>
+            <returns>LA_OK, LA_EXPIRED, LA_SUSPENDED, LA_FAIL</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.ActivateLicenseOffline(System.String)">
+            <summary>
+            Activates your licenses using the offline activation response file.
+            </summary>
+            <param name="filePath">path of the offline activation response file</param>
+            <returns>LA_OK, LA_EXPIRED, LA_SUSPENDED, LA_FAIL</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GenerateOfflineActivationRequest(System.String)">
+            <summary>
+            Generates the offline activation request needed for generating
+            offline activation response in the dashboard.
+            </summary>
+            <param name="filePath">path of the file for the offline request.</param>
+        </member>
+        <member name="M:Cryptlex.LexActivator.DeactivateLicense">
+            <summary>
+            Deactivates the license activation and frees up the corresponding activation
+            slot by contacting the Cryptlex servers.
+            
+            This function should be executed at the time of de-registration, ideally on
+            a button click.
+            </summary>
+            <returns>LA_OK, LA_FAIL</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GenerateOfflineDeactivationRequest(System.String)">
+            <summary>
+            Generates the offline deactivation request needed for deactivation of
+            the license in the dashboard and deactivates the license locally.
+            
+            A valid offline deactivation file confirms that the license has been successfully
+            deactivated on the user's machine.
+            </summary>
+            <param name="filePath">path of the file for the offline request</param>
+            <returns>LA_OK, LA_FAIL</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.IsLicenseGenuine">
+            <summary>
+            It verifies whether your app is genuinely activated or not. The verification is
+            done locally by verifying the cryptographic digital signature fetched at the time of activation.
+            
+            After verifying locally, it schedules a server check in a separate thread. After the
+            first server sync it periodically does further syncs at a frequency set for the license.
+            
+            In case server sync fails due to network error, and it continues to fail for fixed
+            number of days (grace period), the function returns LA_GRACE_PERIOD_OVER instead of LA_OK.
+            
+            This function must be called on every start of your program to verify the activation
+            of your app.
+            </summary>
+            <returns>LA_OK, LA_EXPIRED, LA_SUSPENDED, LA_GRACE_PERIOD_OVER, LA_FAIL</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.IsLicenseValid">
+            <summary>
+            It verifies whether your app is genuinely activated or not. The verification is
+            done locally by verifying the cryptographic digital signature fetched at the time of activation.
+            
+            This is just an auxiliary function which you may use in some specific cases, when you
+            want to skip the server sync.
+            
+            NOTE: You may want to set grace period to 0 to ignore grace period.
+            </summary>
+            <returns>LA_OK, LA_EXPIRED, LA_SUSPENDED, LA_GRACE_PERIOD_OVER, LA_FAIL</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.ActivateTrial">
+            <summary>
+            Starts the verified trial in your application by contacting the
+            Cryptlex servers.
+            
+            This function should be executed when your application starts first time on
+            the user's computer, ideally on a button click.
+            </summary>
+            <returns>LA_OK, LA_TRIAL_EXPIRED</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.ActivateTrialOffline(System.String)">
+            <summary>
+            Activates your trial using the offline activation response file.
+            </summary>
+            <param name="filePath">path of the offline activation response file.</param>
+            <returns>LA_OK, LA_TRIAL_EXPIRED, LA_FAIL</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.GenerateOfflineTrialActivationRequest(System.String)">
+            <summary>
+            Generates the offline trial activation request needed for generating
+            offline trial activation response in the dashboard.
+            </summary>
+            <param name="filePath">path of the file for the offline request</param>
+        </member>
+        <member name="M:Cryptlex.LexActivator.IsTrialGenuine">
+            <summary>
+            It verifies whether trial has started and is genuine or not. The
+            verification is done locally by verifying the cryptographic digital signature
+            fetched at the time of trial activation.
+            
+            This function must be called on every start of your program during the trial period.
+            </summary>
+            <returns>LA_OK, LA_TRIAL_EXPIRED, LA_FAIL</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.ActivateLocalTrial(System.UInt32)">
+            <summary>
+            Starts the local (unverified) trial.
+            
+            This function should be executed when your application starts first time on
+            the user's computer.
+            </summary>
+            <param name="trialLength">trial length in days</param>
+            <returns>LA_OK, LA_LOCAL_TRIAL_EXPIRED, LA_FAIL</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.IsLocalTrialGenuine">
+            <summary>
+            It verifies whether trial has started and is genuine or not. The
+            verification is done locally.
+            
+            This function must be called on every start of your program during the trial period.
+            
+            NOTE: The function is only meant for local (unverified) trials.
+            </summary>
+            <returns>LA_OK, LA_LOCAL_TRIAL_EXPIRED, LA_FAIL</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.ExtendLocalTrial(System.UInt32)">
+            <summary>
+            Extends the local trial.
+            
+            NOTE: The function is only meant for local (unverified) trials.
+            </summary>
+            <param name="trialExtensionLength">number of days to extend the trial</param>
+            <returns>LA_OK, LA_FAIL</returns>
+        </member>
+        <member name="M:Cryptlex.LexActivator.IncrementActivationMeterAttributeUses(System.String,System.UInt32)">
+            <summary>
+            Increments the meter attribute uses of the activation.
+            </summary>
+            <param name="name">name of the meter attribute</param>
+            <param name="increment">the increment value</param>
+        </member>
+        <member name="M:Cryptlex.LexActivator.DecrementActivationMeterAttributeUses(System.String,System.UInt32)">
+            <summary>
+            Decrements the meter attribute uses of the activation.
+            </summary>
+            <param name="name">name of the meter attribute</param>
+            <param name="decrement">the decrement value</param>
+        </member>
+        <member name="M:Cryptlex.LexActivator.ResetActivationMeterAttributeUses(System.String)">
+            <summary>
+            Resets the meter attribute uses consumed by the activation.
+            </summary>
+            <param name="name">name of the meter attribute</param>
+        </member>
+        <member name="M:Cryptlex.LexActivator.Reset">
+            <summary>
+            Resets the activation and trial data stored in the machine.
+            
+            This function is meant for developer testing only.
+            
+            NOTE: The function does not reset local (unverified) trial data.
+            </summary>
+        </member>
+    </members>
+</doc>
